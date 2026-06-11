@@ -1,0 +1,1538 @@
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bill               |
+| college_db         |
+| constraints        |
+| employee           |
+| hospital_db        |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| training           |
+| world              |
++--------------------+
+12 rows in set (0.01 sec)
+
+mysql> use college_db;
+Database changed
+mysql> CREATE TABLE employ (
+    ->     emp_id INT PRIMARY KEY,
+    ->     emp_name VARCHAR(50),
+    ->     department VARCHAR(30),
+    ->     salary INT
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO employ VALUES
+    -> (101,'Saran','IT',55000),
+    -> (102,'Anitha','HR',45000),
+    -> (103,'Karthik','Finance',60000),
+    -> (104,'Sneha','IT',65000),
+    -> (105,'Arjun','Marketing',48000),
+    -> (106,'Sowmya','HR',52000),
+    -> (107,'Varun','Finance',58000),
+    -> (108,'Priya','IT',62000),
+    -> (109,'Charan','Sales',43000),
+    -> (110,'Sravya','Marketing',70000),
+    -> (111,'Rahul','IT',54000),
+    -> (112,'Deepa','HR',47000),
+    -> (113,'Nikhil','Finance',51000),
+    -> (114,'Tejas','IT',67000),
+    -> (115,'Rishi','Sales',46000);
+Query OK, 15 rows affected (0.01 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO employ VALUES (116,'Madhu','IT',58000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO employ VALUES
+    -> (117,'Kiran','HR',50000),
+    -> (118,'Lavanya','Finance',62000);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE employ
+    -> SET salary = 60000
+    -> WHERE emp_id = 101;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employ
+    -> SET department = 'Sales'
+    -> WHERE emp_id = 105;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employ
+    -> SET salary = salary + 5000
+    -> WHERE department = 'IT';
+Query OK, 6 rows affected (0.01 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> UPDATE employ
+    -> SET salary = salary * 1.10
+    -> WHERE department = 'HR';
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> DELETE FROM employ
+    -> WHERE emp_id = 115;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO employ VALUES
+    -> (119,'Manoj','Sales',50000),
+    -> (120,'Pooja','Sales',52000);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql>Microsoft Windows [Version 10.0.26200.8655]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\haree>mysql -u root -p
+Enter password: ***********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use employee;
+Database changed
+mysql> select * from employ;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    101 | saran    | it         |  55000 |
+|    102 | anitha   | hr         |  45000 |
+|    103 | karthik  | finance    |  60000 |
+|    104 | sneha    | it         |  65000 |
+|    105 | arjun    | marketing  |  48000 |
+|    106 | sowmya   | hr         |  52000 |
+|    107 | varun    | finance    |  58000 |
+|    108 | priya    | it         |  62000 |
+|    109 | charan   | sales      |  43000 |
+|    110 | sravya   | marketing  |  70000 |
+|    111 | rahul    | it         |  54000 |
+|    112 | deepa    | hr         |  47000 |
+|    113 | nikhil   | finance    |  51000 |
+|    114 | tejas    | it         |  67000 |
+|    115 | rishi    | sales      |  46000 |
+|    116 | harsha   | hr         |  61000 |
+|    117 | tarun    | finance    |  72000 |
+|    118 | shreya   | maarketing |  53000 |
+|    119 | kiran    | it         |  49000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name where emp_depart='it';
+ERROR 1054 (42S22): Unknown column 'emp_name' in 'field list'
+mysql> select emp_name from employ where emp_depart='it';
++----------+
+| emp_name |
++----------+
+| saran    |
+| sneha    |
+| priya    |
+| rahul    |
+| tejas    |
+| kiran    |
++----------+
+6 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where emp_depart='hr';
++----------+
+| emp_name |
++----------+
+| anitha   |
+| sowmya   |
+| deepa    |
+| harsha   |
++----------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where salary<=60000;
++----------+
+| emp_name |
++----------+
+| saran    |
+| anitha   |
+| karthik  |
+| arjun    |
+| sowmya   |
+| varun    |
+| charan   |
+| rahul    |
+| deepa    |
+| nikhil   |
+| rishi    |
+| shreya   |
+| kiran    |
+| bhavana  |
++----------+
+14 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where salary>=60000;
++----------+
+| emp_name |
++----------+
+| karthik  |
+| sneha    |
+| priya    |
+| sravya   |
+| tejas    |
+| harsha   |
+| tarun    |
++----------+
+7 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where salary=70000;
++----------+
+| emp_name |
++----------+
+| sravya   |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select emp_name from employ where salary=70000 and emp_depart='it';
+Empty set (0.00 sec)
+
+mysql> select emp_name from employ where salary<70000 and emp_depart='it';
++----------+
+| emp_name |
++----------+
+| saran    |
+| sneha    |
+| priya    |
+| rahul    |
+| tejas    |
+| kiran    |
++----------+
+6 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where salary>60000 and emp_depart='it';
++----------+
+| emp_name |
++----------+
+| sneha    |
+| priya    |
+| tejas    |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where salary>55000 and emp_depart='finance';
++----------+
+| emp_name |
++----------+
+| karthik  |
+| varun    |
+| tarun    |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where salary<50000 and emp_depart='sales';
++----------+
+| emp_name |
++----------+
+| charan   |
+| rishi    |
++----------+
+2 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where salary>50000 and emp_depart='marketing';
++----------+
+| emp_name |
++----------+
+| sravya   |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select emp_name from employ where emp_depart='hr' or emp_depart='finance';
++----------+
+| emp_name |
++----------+
+| anitha   |
+| karthik  |
+| sowmya   |
+| varun    |
+| deepa    |
+| nikhil   |
+| harsha   |
+| tarun    |
++----------+
+8 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where emp_depart='it' or emp_depart='marketing';
++----------+
+| emp_name |
++----------+
+| saran    |
+| sneha    |
+| arjun    |
+| priya    |
+| sravya   |
+| rahul    |
+| tejas    |
+| kiran    |
++----------+
+8 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where salary<=45000 or salary>=70000;
++----------+
+| emp_name |
++----------+
+| anitha   |
+| charan   |
+| sravya   |
+| tarun    |
++----------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where emp_depart='sales' or emp_depart='hr';
++----------+
+| emp_name |
++----------+
+| anitha   |
+| sowmya   |
+| charan   |
+| deepa    |
+| rishi    |
+| harsha   |
+| bhavana  |
++----------+
+7 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where salary<=45000 or salary=60000;
++----------+
+| emp_name |
++----------+
+| anitha   |
+| karthik  |
+| charan   |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where emp_depart!='hr';
++----------+
+| emp_name |
++----------+
+| saran    |
+| karthik  |
+| sneha    |
+| arjun    |
+| varun    |
+| priya    |
+| charan   |
+| sravya   |
+| rahul    |
+| nikhil   |
+| tejas    |
+| rishi    |
+| tarun    |
+| shreya   |
+| kiran    |
+| bhavana  |
++----------+
+16 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where emp_depart!='it';
++----------+
+| emp_name |
++----------+
+| anitha   |
+| karthik  |
+| arjun    |
+| sowmya   |
+| varun    |
+| charan   |
+| sravya   |
+| deepa    |
+| nikhil   |
+| rishi    |
+| harsha   |
+| tarun    |
+| shreya   |
+| bhavana  |
++----------+
+14 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where salary!=55000;
++----------+
+| emp_name |
++----------+
+| anitha   |
+| karthik  |
+| sneha    |
+| arjun    |
+| sowmya   |
+| varun    |
+| priya    |
+| charan   |
+| sravya   |
+| rahul    |
+| deepa    |
+| nikhil   |
+| tejas    |
+| rishi    |
+| harsha   |
+| tarun    |
+| shreya   |
+| kiran    |
+| bhavana  |
++----------+
+19 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where salary!>=55000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '!>=55000' at line 1
+mysql> select emp_name from employ where salary!>55000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '!>55000' at line 1
+mysql> select emp_name from employ where not  salary>=55000;
++----------+
+| emp_name |
++----------+
+| anitha   |
+| arjun    |
+| sowmya   |
+| charan   |
+| rahul    |
+| deepa    |
+| nikhil   |
+| rishi    |
+| shreya   |
+| kiran    |
++----------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employ
+    -> ;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    101 | saran    | it         |  55000 |
+|    102 | anitha   | hr         |  45000 |
+|    103 | karthik  | finance    |  60000 |
+|    104 | sneha    | it         |  65000 |
+|    105 | arjun    | marketing  |  48000 |
+|    106 | sowmya   | hr         |  52000 |
+|    107 | varun    | finance    |  58000 |
+|    108 | priya    | it         |  62000 |
+|    109 | charan   | sales      |  43000 |
+|    110 | sravya   | marketing  |  70000 |
+|    111 | rahul    | it         |  54000 |
+|    112 | deepa    | hr         |  47000 |
+|    113 | nikhil   | finance    |  51000 |
+|    114 | tejas    | it         |  67000 |
+|    115 | rishi    | sales      |  46000 |
+|    116 | harsha   | hr         |  61000 |
+|    117 | tarun    | finance    |  72000 |
+|    118 | shreya   | maarketing |  53000 |
+|    119 | kiran    | it         |  49000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name from employ where emp_depart!='sales';
++----------+
+| emp_name |
++----------+
+| saran    |
+| anitha   |
+| karthik  |
+| sneha    |
+| arjun    |
+| sowmya   |
+| varun    |
+| priya    |
+| sravya   |
+| rahul    |
+| deepa    |
+| nikhil   |
+| tejas    |
+| harsha   |
+| tarun    |
+| shreya   |
+| kiran    |
++----------+
+17 rows in set (0.00 sec)
+
+mysql> select emp_name from employ order by salary asc;
++----------+
+| emp_name |
++----------+
+| charan   |
+| anitha   |
+| rishi    |
+| deepa    |
+| arjun    |
+| kiran    |
+| nikhil   |
+| sowmya   |
+| shreya   |
+| rahul    |
+| saran    |
+| bhavana  |
+| varun    |
+| karthik  |
+| harsha   |
+| priya    |
+| sneha    |
+| tejas    |
+| sravya   |
+| tarun    |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name from employ order by emp_name asc;;
++----------+
+| emp_name |
++----------+
+| anitha   |
+| arjun    |
+| bhavana  |
+| charan   |
+| deepa    |
+| harsha   |
+| karthik  |
+| kiran    |
+| nikhil   |
+| priya    |
+| rahul    |
+| rishi    |
+| saran    |
+| shreya   |
+| sneha    |
+| sowmya   |
+| sravya   |
+| tarun    |
+| tejas    |
+| varun    |
++----------+
+20 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> select emp_name from employ order by emp_name asc;
++----------+
+| emp_name |
++----------+
+| anitha   |
+| arjun    |
+| bhavana  |
+| charan   |
+| deepa    |
+| harsha   |
+| karthik  |
+| kiran    |
+| nikhil   |
+| priya    |
+| rahul    |
+| rishi    |
+| saran    |
+| shreya   |
+| sneha    |
+| sowmya   |
+| sravya   |
+| tarun    |
+| tejas    |
+| varun    |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name from employ order by emp_depart asc;
++----------+
+| emp_name |
++----------+
+| karthik  |
+| varun    |
+| nikhil   |
+| tarun    |
+| anitha   |
+| sowmya   |
+| deepa    |
+| harsha   |
+| saran    |
+| sneha    |
+| priya    |
+| rahul    |
+| tejas    |
+| kiran    |
+| shreya   |
+| arjun    |
+| sravya   |
+| charan   |
+| rishi    |
+| bhavana  |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name from employ order by emp_id asc;
++----------+
+| emp_name |
++----------+
+| saran    |
+| anitha   |
+| karthik  |
+| sneha    |
+| arjun    |
+| sowmya   |
+| varun    |
+| priya    |
+| charan   |
+| sravya   |
+| rahul    |
+| deepa    |
+| nikhil   |
+| tejas    |
+| rishi    |
+| harsha   |
+| tarun    |
+| shreya   |
+| kiran    |
+| bhavana  |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> select * from employ order by salary asc,emp_name asc;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    109 | charan   | sales      |  43000 |
+|    102 | anitha   | hr         |  45000 |
+|    115 | rishi    | sales      |  46000 |
+|    112 | deepa    | hr         |  47000 |
+|    105 | arjun    | marketing  |  48000 |
+|    119 | kiran    | it         |  49000 |
+|    113 | nikhil   | finance    |  51000 |
+|    106 | sowmya   | hr         |  52000 |
+|    118 | shreya   | maarketing |  53000 |
+|    111 | rahul    | it         |  54000 |
+|    101 | saran    | it         |  55000 |
+|    120 | bhavana  | sales      |  57000 |
+|    107 | varun    | finance    |  58000 |
+|    103 | karthik  | finance    |  60000 |
+|    116 | harsha   | hr         |  61000 |
+|    108 | priya    | it         |  62000 |
+|    104 | sneha    | it         |  65000 |
+|    114 | tejas    | it         |  67000 |
+|    110 | sravya   | marketing  |  70000 |
+|    117 | tarun    | finance    |  72000 |
++--------+----------+------------+--------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name from employ order by salary desc;
++----------+
+| emp_name |
++----------+
+| tarun    |
+| sravya   |
+| tejas    |
+| sneha    |
+| priya    |
+| harsha   |
+| karthik  |
+| varun    |
+| bhavana  |
+| saran    |
+| rahul    |
+| shreya   |
+| sowmya   |
+| nikhil   |
+| kiran    |
+| arjun    |
+| deepa    |
+| rishi    |
+| anitha   |
+| charan   |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name from employ order by emp_name desc;
++----------+
+| emp_name |
++----------+
+| varun    |
+| tejas    |
+| tarun    |
+| sravya   |
+| sowmya   |
+| sneha    |
+| shreya   |
+| saran    |
+| rishi    |
+| rahul    |
+| priya    |
+| nikhil   |
+| kiran    |
+| karthik  |
+| harsha   |
+| deepa    |
+| charan   |
+| bhavana  |
+| arjun    |
+| anitha   |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name from employ order by emp_depart desc;
++----------+
+| emp_name |
++----------+
+| charan   |
+| rishi    |
+| bhavana  |
+| arjun    |
+| sravya   |
+| shreya   |
+| saran    |
+| sneha    |
+| priya    |
+| rahul    |
+| tejas    |
+| kiran    |
+| anitha   |
+| sowmya   |
+| deepa    |
+| harsha   |
+| karthik  |
+| varun    |
+| nikhil   |
+| tarun    |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name from employ order by emp_depart desc;
++----------+
+| emp_name |
++----------+
+| charan   |
+| rishi    |
+| bhavana  |
+| arjun    |
+| sravya   |
+| shreya   |
+| saran    |
+| sneha    |
+| priya    |
+| rahul    |
+| tejas    |
+| kiran    |
+| anitha   |
+| sowmya   |
+| deepa    |
+| harsha   |
+| karthik  |
+| varun    |
+| nikhil   |
+| tarun    |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name from employ order by emp_id desc;
++----------+
+| emp_name |
++----------+
+| bhavana  |
+| kiran    |
+| shreya   |
+| tarun    |
+| harsha   |
+| rishi    |
+| tejas    |
+| nikhil   |
+| deepa    |
+| rahul    |
+| sravya   |
+| charan   |
+| priya    |
+| varun    |
+| sowmya   |
+| arjun    |
+| sneha    |
+| karthik  |
+| anitha   |
+| saran    |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name from employ order by salary desc;
++----------+
+| emp_name |
++----------+
+| tarun    |
+| sravya   |
+| tejas    |
+| sneha    |
+| priya    |
+| harsha   |
+| karthik  |
+| varun    |
+| bhavana  |
+| saran    |
+| rahul    |
+| shreya   |
+| sowmya   |
+| nikhil   |
+| kiran    |
+| arjun    |
+| deepa    |
+| rishi    |
+| anitha   |
+| charan   |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> select distinct emp_depart from employ;
++------------+
+| emp_depart |
++------------+
+| it         |
+| hr         |
+| finance    |
+| marketing  |
+| sales      |
+| maarketing |
++------------+
+6 rows in set (0.01 sec)
+
+mysql> select distinct salary from employ;
++--------+
+| salary |
++--------+
+|  55000 |
+|  45000 |
+|  60000 |
+|  65000 |
+|  48000 |
+|  52000 |
+|  58000 |
+|  62000 |
+|  43000 |
+|  70000 |
+|  54000 |
+|  47000 |
+|  51000 |
+|  67000 |
+|  46000 |
+|  61000 |
+|  72000 |
+|  53000 |
+|  49000 |
+|  57000 |
++--------+
+20 rows in set (0.00 sec)
+
+mysql> select distinct salary and emp_depart from employ;
++-----------------------+
+| salary and emp_depart |
++-----------------------+
+|                     0 |
++-----------------------+
+1 row in set, 10 warnings (0.01 sec)
+
+mysql> select distinct salary,emp_depart from employ;
++--------+------------+
+| salary | emp_depart |
++--------+------------+
+|  55000 | it         |
+|  45000 | hr         |
+|  60000 | finance    |
+|  65000 | it         |
+|  48000 | marketing  |
+|  52000 | hr         |
+|  58000 | finance    |
+|  62000 | it         |
+|  43000 | sales      |
+|  70000 | marketing  |
+|  54000 | it         |
+|  47000 | hr         |
+|  51000 | finance    |
+|  67000 | it         |
+|  46000 | sales      |
+|  61000 | hr         |
+|  72000 | finance    |
+|  53000 | maarketing |
+|  49000 | it         |
+|  57000 | sales      |
++--------+------------+
+20 rows in set (0.00 sec)
+
+mysql> select count(distinct salary) from employ;
++------------------------+
+| count(distinct salary) |
++------------------------+
+|                     20 |
++------------------------+
+1 row in set (0.01 sec)
+
+mysql> select count(distinct emp_name) from employ;
++--------------------------+
+| count(distinct emp_name) |
++--------------------------+
+|                       20 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(emp_name) from employ;
++-----------------+
+| count(emp_name) |
++-----------------+
+|              20 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select distinct count(emp_name) from employ;
++-----------------+
+| count(emp_name) |
++-----------------+
+|              20 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select  count(emp_name) distinct from employ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'distinct from employ' at line 1
+mysql> select  count(emp_name distinct)  from employ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'distinct)  from employ' at line 1
+mysql> select  count( distinct emp_name )  from employ;
++----------------------------+
+| count( distinct emp_name ) |
++----------------------------+
+|                         20 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select  count( distinct emp_deprt )  from employ;
+ERROR 1054 (42S22): Unknown column 'emp_deprt' in 'field list'
+mysql> select  count( distinct emp_depart )  from employ;
++------------------------------+
+| count( distinct emp_depart ) |
++------------------------------+
+|                            6 |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> mysql> SELECT DISTINCT LEFT(emp_name, 1) AS first_letter
+    ->     -> FROM employ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> SELECT DISTINCT LEFT(emp_name, 1) AS first_letter
+    -> FROM employ' at line 1
+mysql> SELECT DISTINCT LEFT(emp_name, 1) AS first_letter from employ;
++--------------+
+| first_letter |
++--------------+
+| s            |
+| a            |
+| k            |
+| v            |
+| p            |
+| c            |
+| r            |
+| d            |
+| n            |
+| t            |
+| h            |
+| b            |
++--------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT right(emp_name, 1) AS first_letter  from employ  ;
++--------------+
+| first_letter |
++--------------+
+| n            |
+| a            |
+| k            |
+| l            |
+| s            |
+| i            |
++--------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT right(emp_name, 1) AS first_letter  from employ  order by first_letter;
++--------------+
+| first_letter |
++--------------+
+| a            |
+| i            |
+| k            |
+| l            |
+| n            |
+| s            |
++--------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT right(emp_name, 1) AS first_letter  from employ  order by first_letter;
++--------------+
+| first_letter |
++--------------+
+| a            |
+| i            |
+| k            |
+| l            |
+| n            |
+| s            |
++--------------+
+6 rows in set (0.00 sec)
+
+mysql> mysql> SELECT DISTINCT LEFT(emp_name, 1) AS first_letter order by first_letter;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> SELECT DISTINCT LEFT(emp_name, 1) AS first_letter order by first_letter' at line 1
+mysql> mysql> SELECT DISTINCT LEFT(emp_name, 1) AS first_letter from employ order by first_letter;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> SELECT DISTINCT LEFT(emp_name, 1) AS first_letter from employ order by fi' at line 1
+mysql> SELECT DISTINCT LEFT(emp_name, 1) AS first_letter from employ order by first_letter;
++--------------+
+| first_letter |
++--------------+
+| a            |
+| b            |
+| c            |
+| d            |
+| h            |
+| k            |
+| n            |
+| p            |
+| r            |
+| s            |
+| t            |
+| v            |
++--------------+
+12 rows in set (0.00 sec)
+
+mysql> select  max(salary,3)  from employ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',3)  from employ' at line 1
+mysql> select  max(salary)  from employ;
++-------------+
+| max(salary) |
++-------------+
+|       72000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select  max(salary)  from employ limit 3;
++-------------+
+| max(salary) |
++-------------+
+|       72000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select  max(salary)  from employ limit ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select  max(salary)  from employ limit 5;
++-------------+
+| max(salary) |
++-------------+
+|       72000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select  salary from employ limit 5;
++--------+
+| salary |
++--------+
+|  55000 |
+|  45000 |
+|  60000 |
+|  65000 |
+|  48000 |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> select  salary from employ limit 2,5;
++--------+
+| salary |
++--------+
+|  60000 |
+|  65000 |
+|  48000 |
+|  52000 |
+|  58000 |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> select  max(salary) from employ limit 2,5;
+Empty set (0.00 sec)
+
+mysql> select  max(salary) from employ limit(2,5);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(2,5)' at line 1
+mysql> select  max(salary) from employ limit(2,5);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(2,5)' at line 1
+mysql> mysql> SELECT *
+    ->     -> FROM employ
+    ->     -> ORDER BY salary DESC
+    ->     -> LIMIT 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> SELECT *
+    -> FROM employ
+    -> ORDER BY salary DESC
+    -> LIMIT 3' at line 1
+mysql>  mysql> SELECT *;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> SELECT *' at line 1
+mysql>     -> FROM employ
+    ->     -> ORDER BY salary DESC
+    ->     -> ORDER BY salary DESC^C
+mysql> mysql> SELECT *
+    ->     -> FROM employ
+    ->     -> ORDER BY salary DESC
+    ->     -> ORDER BY salary DESC^C
+mysql> select *from employ order by salary desc limit 3;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    117 | tarun    | finance    |  72000 |
+|    110 | sravya   | marketing  |  70000 |
+|    114 | tejas    | it         |  67000 |
++--------+----------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select *from employ order by salary asc limit 4;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    109 | charan   | sales      |  43000 |
+|    102 | anitha   | hr         |  45000 |
+|    115 | rishi    | sales      |  46000 |
+|    112 | deepa    | hr         |  47000 |
++--------+----------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employ
+    -> LIMIT 2, 5;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    103 | karthik  | finance    |  60000 |
+|    104 | sneha    | it         |  65000 |
+|    105 | arjun    | marketing  |  48000 |
+|    106 | sowmya   | hr         |  52000 |
+|    107 | varun    | finance    |  58000 |
++--------+----------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * from employ where salary between 45000 and 60000;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    101 | saran    | it         |  55000 |
+|    102 | anitha   | hr         |  45000 |
+|    103 | karthik  | finance    |  60000 |
+|    105 | arjun    | marketing  |  48000 |
+|    106 | sowmya   | hr         |  52000 |
+|    107 | varun    | finance    |  58000 |
+|    111 | rahul    | it         |  54000 |
+|    112 | deepa    | hr         |  47000 |
+|    113 | nikhil   | finance    |  51000 |
+|    115 | rishi    | sales      |  46000 |
+|    118 | shreya   | maarketing |  53000 |
+|    119 | kiran    | it         |  49000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT * from employ where salary between 50000 and 70000;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    101 | saran    | it         |  55000 |
+|    103 | karthik  | finance    |  60000 |
+|    104 | sneha    | it         |  65000 |
+|    106 | sowmya   | hr         |  52000 |
+|    107 | varun    | finance    |  58000 |
+|    108 | priya    | it         |  62000 |
+|    110 | sravya   | marketing  |  70000 |
+|    111 | rahul    | it         |  54000 |
+|    113 | nikhil   | finance    |  51000 |
+|    114 | tejas    | it         |  67000 |
+|    116 | harsha   | hr         |  61000 |
+|    118 | shreya   | maarketing |  53000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT * from employ where emp_id between 105 and 115;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    105 | arjun    | marketing  |  48000 |
+|    106 | sowmya   | hr         |  52000 |
+|    107 | varun    | finance    |  58000 |
+|    108 | priya    | it         |  62000 |
+|    109 | charan   | sales      |  43000 |
+|    110 | sravya   | marketing  |  70000 |
+|    111 | rahul    | it         |  54000 |
+|    112 | deepa    | hr         |  47000 |
+|    113 | nikhil   | finance    |  51000 |
+|    114 | tejas    | it         |  67000 |
+|    115 | rishi    | sales      |  46000 |
++--------+----------+------------+--------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * from employ where salary not between 45000 and 60000;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    104 | sneha    | it         |  65000 |
+|    108 | priya    | it         |  62000 |
+|    109 | charan   | sales      |  43000 |
+|    110 | sravya   | marketing  |  70000 |
+|    114 | tejas    | it         |  67000 |
+|    116 | harsha   | hr         |  61000 |
+|    117 | tarun    | finance    |  72000 |
++--------+----------+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * from employ where emp_id between 110 and 120;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    110 | sravya   | marketing  |  70000 |
+|    111 | rahul    | it         |  54000 |
+|    112 | deepa    | hr         |  47000 |
+|    113 | nikhil   | finance    |  51000 |
+|    114 | tejas    | it         |  67000 |
+|    115 | rishi    | sales      |  46000 |
+|    116 | harsha   | hr         |  61000 |
+|    117 | tarun    | finance    |  72000 |
+|    118 | shreya   | maarketing |  53000 |
+|    119 | kiran    | it         |  49000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * from employ where emp_depart in ('it' or 'finance');
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    101 | saran    | it         |  55000 |
+|    102 | anitha   | hr         |  45000 |
+|    103 | karthik  | finance    |  60000 |
+|    104 | sneha    | it         |  65000 |
+|    105 | arjun    | marketing  |  48000 |
+|    106 | sowmya   | hr         |  52000 |
+|    107 | varun    | finance    |  58000 |
+|    108 | priya    | it         |  62000 |
+|    109 | charan   | sales      |  43000 |
+|    110 | sravya   | marketing  |  70000 |
+|    111 | rahul    | it         |  54000 |
+|    112 | deepa    | hr         |  47000 |
+|    113 | nikhil   | finance    |  51000 |
+|    114 | tejas    | it         |  67000 |
+|    115 | rishi    | sales      |  46000 |
+|    116 | harsha   | hr         |  61000 |
+|    117 | tarun    | finance    |  72000 |
+|    118 | shreya   | maarketing |  53000 |
+|    119 | kiran    | it         |  49000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+20 rows in set, 12 warnings (0.00 sec)
+
+mysql> SELECT * from employ where emp_depart in ('it','finance');
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    101 | saran    | it         |  55000 |
+|    103 | karthik  | finance    |  60000 |
+|    104 | sneha    | it         |  65000 |
+|    107 | varun    | finance    |  58000 |
+|    108 | priya    | it         |  62000 |
+|    111 | rahul    | it         |  54000 |
+|    113 | nikhil   | finance    |  51000 |
+|    114 | tejas    | it         |  67000 |
+|    117 | tarun    | finance    |  72000 |
+|    119 | kiran    | it         |  49000 |
++--------+----------+------------+--------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * from employ where emp_depart in ('sales','hr','marketing');
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    102 | anitha   | hr         |  45000 |
+|    105 | arjun    | marketing  |  48000 |
+|    106 | sowmya   | hr         |  52000 |
+|    109 | charan   | sales      |  43000 |
+|    110 | sravya   | marketing  |  70000 |
+|    112 | deepa    | hr         |  47000 |
+|    115 | rishi    | sales      |  46000 |
+|    116 | harsha   | hr         |  61000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * from employ where emp_depart in (45000,55000,65000);
+Empty set, 10 warnings (0.00 sec)
+
+mysql> SELECT * from employ where salary in (45000,55000,65000);
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    101 | saran    | it         |  55000 |
+|    102 | anitha   | hr         |  45000 |
+|    104 | sneha    | it         |  65000 |
++--------+----------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * from employ where emp_id in (101,105,110,120);
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    101 | saran    | it         |  55000 |
+|    105 | arjun    | marketing  |  48000 |
+|    110 | sravya   | marketing  |  70000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * from employ where emp_depart in ('it','finance','marketing');
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    101 | saran    | it         |  55000 |
+|    103 | karthik  | finance    |  60000 |
+|    104 | sneha    | it         |  65000 |
+|    105 | arjun    | marketing  |  48000 |
+|    107 | varun    | finance    |  58000 |
+|    108 | priya    | it         |  62000 |
+|    110 | sravya   | marketing  |  70000 |
+|    111 | rahul    | it         |  54000 |
+|    113 | nikhil   | finance    |  51000 |
+|    114 | tejas    | it         |  67000 |
+|    117 | tarun    | finance    |  72000 |
+|    119 | kiran    | it         |  49000 |
++--------+----------+------------+--------+
+12 rows in set (0.00 sec)
+
+mysql> select * from employ where emp_name like '%a';
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    102 | anitha   | hr         |  45000 |
+|    104 | sneha    | it         |  65000 |
+|    106 | sowmya   | hr         |  52000 |
+|    108 | priya    | it         |  62000 |
+|    110 | sravya   | marketing  |  70000 |
+|    112 | deepa    | hr         |  47000 |
+|    116 | harsha   | hr         |  61000 |
+|    118 | shreya   | maarketing |  53000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+9 rows in set (0.01 sec)
+
+mysql> select * from employe3 where emp_name like '%s';
+ERROR 1146 (42S02): Table 'employee.employe3' doesn't exist
+mysql> select * from employ where emp_name like '%s';
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    114 | tejas    | it         |  67000 |
++--------+----------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employ where emp_name like '%hr';
+Empty set (0.00 sec)
+
+mysql> select * from employe3 where emp_name like '%ar%';
+ERROR 1146 (42S02): Table 'employee.employe3' doesn't exist
+mysql> select * from employ where emp_name like '%ar%';
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    101 | saran    | it         |  55000 |
+|    103 | karthik  | finance    |  60000 |
+|    105 | arjun    | marketing  |  48000 |
+|    107 | varun    | finance    |  58000 |
+|    109 | charan   | sales      |  43000 |
+|    116 | harsha   | hr         |  61000 |
+|    117 | tarun    | finance    |  72000 |
++--------+----------+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employ where emp_name like '%ha%';
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    102 | anitha   | hr         |  45000 |
+|    104 | sneha    | it         |  65000 |
+|    109 | charan   | sales      |  43000 |
+|    116 | harsha   | hr         |  61000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employ where emp_name like '%ah%';
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    111 | rahul    | it         |  54000 |
++--------+----------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employ where emp_name like '%h%';
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    102 | anitha   | hr         |  45000 |
+|    103 | karthik  | finance    |  60000 |
+|    104 | sneha    | it         |  65000 |
+|    109 | charan   | sales      |  43000 |
+|    111 | rahul    | it         |  54000 |
+|    113 | nikhil   | finance    |  51000 |
+|    115 | rishi    | sales      |  46000 |
+|    116 | harsha   | hr         |  61000 |
+|    118 | shreya   | maarketing |  53000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select count(where emp_depart='it') from employ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where emp_depart='it') from employ' at line 1
+mysql> ELECT COUNT(*) FROM EMPLOY WHERE EMP_DEPART= 'IT';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ELECT COUNT(*) FROM EMPLOY WHERE EMP_DEPART= 'IT'' at line 1
+mysql>
+mysql> sELECT COUNT(*) FROM EMPLOY WHERE EMP_DEPART= 'IT';
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> sELECT COUNT(*) FROM EMPLOY WHERE EMP_DEPART= 'hr';
++----------+
+| COUNT(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> sELECT COUNT(*) FROM EMPLOY WHERE salary>=60000;
++----------+
+| COUNT(*) |
++----------+
+|        7 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> sELECT COUNT(distinct emp_depart) FROm employ;
++----------------------------+
+| COUNT(distinct emp_depart) |
++----------------------------+
+|                          6 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT sum(salary) FROm employ;
++-------------+
+| sum(salary) |
++-------------+
+|     1115000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT sum(*) FROm employ where emp_depart='it';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) FROm employ where emp_depart='it'' at line 1
+mysql> sELECT sum(*) FROm employ where emp_depart='it';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) FROm employ where emp_depart='it'' at line 1
+mysql> sELECT sum(salary) FROm employ where emp_depart='it';
++-------------+
+| sum(salary) |
++-------------+
+|      352000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT sum(salary) FROm employ where emp_depart='finance';
++-------------+
+| sum(salary) |
++-------------+
+|      241000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT sum(salary) FROm employ where emp_depart='sales';
++-------------+
+| sum(salary) |
++-------------+
+|      146000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT avg(salary) FROm employ;
++-------------+
+| avg(salary) |
++-------------+
+|  55750.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT avg(salary) FROm employ where emp_depart='it';
++-------------+
+| avg(salary) |
++-------------+
+|  58666.6667 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT avg(salary) FROm employ where emp_depart='sales';
++-------------+
+| avg(salary) |
++-------------+
+|  48666.6667 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT avg(salary) FROm employ where emp_depart='finance';
++-------------+
+| avg(salary) |
++-------------+
+|  60250.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT max(salary) FROm employ;
++-------------+
+| max(salary) |
++-------------+
+|       72000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT max(salary) FROm employ where emp_depart='finance';
++-------------+
+| max(salary) |
++-------------+
+|       72000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT min(salary) FROm employ;
++-------------+
+| min(salary) |
++-------------+
+|       43000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT MIN(salary) FROm employ where emp_depart='it';
++-------------+
+| MIN(salary) |
++-------------+
+|       49000 |
++-------------+
+1 row in set (0.00 sec)
