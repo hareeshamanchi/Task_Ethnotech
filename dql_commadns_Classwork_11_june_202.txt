@@ -1,0 +1,140 @@
+ rows in set (0.00 sec)
+
+mysql> select * from employ;
++--------+----------+------------+--------+
+| emp_id | emp_name | emp_depart | salary |
++--------+----------+------------+--------+
+|    101 | saran    | it         |  55000 |
+|    102 | anitha   | hr         |  45000 |
+|    103 | karthik  | finance    |  60000 |
+|    104 | sneha    | it         |  65000 |
+|    105 | arjun    | marketing  |  48000 |
+|    106 | sowmya   | hr         |  52000 |
+|    107 | varun    | finance    |  58000 |
+|    108 | priya    | it         |  62000 |
+|    109 | charan   | sales      |  43000 |
+|    110 | sravya   | marketing  |  70000 |
+|    111 | rahul    | it         |  54000 |
+|    112 | deepa    | hr         |  47000 |
+|    113 | nikhil   | finance    |  51000 |
+|    114 | tejas    | it         |  67000 |
+|    115 | rishi    | sales      |  46000 |
+|    116 | harsha   | hr         |  61000 |
+|    117 | tarun    | finance    |  72000 |
+|    118 | shreya   | maarketing |  53000 |
+|    119 | kiran    | it         |  49000 |
+|    120 | bhavana  | sales      |  57000 |
++--------+----------+------------+--------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name from employ;
++----------+
+| emp_name |
++----------+
+| saran    |
+| anitha   |
+| karthik  |
+| sneha    |
+| arjun    |
+| sowmya   |
+| varun    |
+| priya    |
+| charan   |
+| sravya   |
+| rahul    |
+| deepa    |
+| nikhil   |
+| tejas    |
+| rishi    |
+| harsha   |
+| tarun    |
+| shreya   |
+| kiran    |
+| bhavana  |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name,salary from employ;
++----------+--------+
+| emp_name | salary |
++----------+--------+
+| saran    |  55000 |
+| anitha   |  45000 |
+| karthik  |  60000 |
+| sneha    |  65000 |
+| arjun    |  48000 |
+| sowmya   |  52000 |
+| varun    |  58000 |
+| priya    |  62000 |
+| charan   |  43000 |
+| sravya   |  70000 |
+| rahul    |  54000 |
+| deepa    |  47000 |
+| nikhil   |  51000 |
+| tejas    |  67000 |
+| rishi    |  46000 |
+| harsha   |  61000 |
+| tarun    |  72000 |
+| shreya   |  53000 |
+| kiran    |  49000 |
+| bhavana  |  57000 |
++----------+--------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_depar from employ;
+ERROR 1054 (42S22): Unknown column 'emp_depar' in 'field list'
+mysql> select emp_id,emp_depart from employ;
++--------+------------+
+| emp_id | emp_depart |
++--------+------------+
+|    101 | it         |
+|    102 | hr         |
+|    103 | finance    |
+|    104 | it         |
+|    105 | marketing  |
+|    106 | hr         |
+|    107 | finance    |
+|    108 | it         |
+|    109 | sales      |
+|    110 | marketing  |
+|    111 | it         |
+|    112 | hr         |
+|    113 | finance    |
+|    114 | it         |
+|    115 | sales      |
+|    116 | hr         |
+|    117 | finance    |
+|    118 | maarketing |
+|    119 | it         |
+|    120 | sales      |
++--------+------------+
+20 rows in set (0.00 sec)
+
+mysql> select emp_name,emp_depart,salary from employ;
++----------+------------+--------+
+| emp_name | emp_depart | salary |
++----------+------------+--------+
+| saran    | it         |  55000 |
+| anitha   | hr         |  45000 |
+| karthik  | finance    |  60000 |
+| sneha    | it         |  65000 |
+| arjun    | marketing  |  48000 |
+| sowmya   | hr         |  52000 |
+| varun    | finance    |  58000 |
+| priya    | it         |  62000 |
+| charan   | sales      |  43000 |
+| sravya   | marketing  |  70000 |
+| rahul    | it         |  54000 |
+| deepa    | hr         |  47000 |
+| nikhil   | finance    |  51000 |
+| tejas    | it         |  67000 |
+| rishi    | sales      |  46000 |
+| harsha   | hr         |  61000 |
+| tarun    | finance    |  72000 |
+| shreya   | maarketing |  53000 |
+| kiran    | it         |  49000 |
+| bhavana  | sales      |  57000 |
++----------+------------+--------+
+20 rows in set (0.00 sec)
+
+mysql>
