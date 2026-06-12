@@ -1,0 +1,393 @@
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database Interview;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> use Interview;
+Database changed
+mysql> create table departments;
+ERROR 4028 (HY000): A table must have at least one visible column.
+;ysql> create table departments(emp_id int,emp_id varchar(20), email varchar(20), salary int, join_date date,dep_id int)
+ERROR 1060 (42S21): Duplicate column name 'emp_id'
+mysql> create table departments(emp_id int,emp_name varchar(20), email varchar(20), salary int, join_date date,dep_id int);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc departements;
+ERROR 1146 (42S02): Table 'interview.departements' doesn't exist
+mysql> desc departments;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| emp_id    | int         | YES  |     | NULL    |       |
+| emp_name  | varchar(20) | YES  |     | NULL    |       |
+| email     | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
+| join_date | date        | YES  |     | NULL    |       |
+| dep_id    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.04 sec)
+
+mysql> truncate departements;
+ERROR 1146 (42S02): Table 'interview.departements' doesn't exist
+mysql> truncate departments;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc departments;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| emp_id    | int         | YES  |     | NULL    |       |
+| emp_name  | varchar(20) | YES  |     | NULL    |       |
+| email     | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
+| join_date | date        | YES  |     | NULL    |       |
+| dep_id    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> drop departments;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'departments' at line 1
+mysql> drop table departments;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc departments;
+ERROR 1146 (42S02): Table 'interview.departments' doesn't exist
+mysql> create table employees(emp_id int primary key,emp_id varchar(20), email varchar(20) unique, salary int check salary>20000, join_date date default=currentdate,dep_id int );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary>20000, join_date date default=currentdate,dep_id int )' at line 1
+mysql> create table departments(dept_id int primary key,dept_name varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table employees(emp_id int primary key,emp_id varchar(20), email varchar(20) unique, salary int check salary>20000, join_date date default=currentdate,dep_id int,foreign key(dept_id)referneces departments(dept_id) );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary>20000, join_date date default=currentdate,dep_id int,foreign key(dept_id)' at line 1
+mysql> create table employees(emp_id int primary key,emp_name varchar(20), email varchar(20) unique, salary int check salary>20000, join_date date default=currentdate,dep_id int,foreign key(dept_id)referneces departments(dept_id) );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary>20000, join_date date default=currentdate,dep_id int,foreign key(dept_id)' at line 1
+mysql> create table employees(emp_id int primary key,emp_name varchar(20), email varchar(20) unique, salary int check salary>20000, join_date date default=currentdate,dep_id int,foreign key(dept_id)referneces departments(dept_id) );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary>20000, join_date date default=currentdate,dep_id int,foreign key(dept_id)' at line 1
+mysql> create table employees(emp_id int primary key,emp_name varchar(20), email varchar(20) unique, salary int check salary>20000, join_date date default=currentdate,dep_id int,foreign key(dept_id)referneces departments(dept_id) );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary>20000, join_date date default=currentdate,dep_id int,foreign key(dept_id)' at line 1
+mysql> ^C
+mysql> CREATE TABLE employees (
+    ->     emp_id INT PRIMARY KEY,
+    ->     emp_name VARCHAR(20),
+    ->     email VARCHAR(20) UNIQUE,
+    ->     salary INT CHECK (salary > 20000),
+    ->     join_date DATE DEFAULT (CURRENT_DATE),
+    ->     dept_id INT,
+    ->     CONSTRAINT fk_dept FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc employees;
++-----------+-------------+------+-----+-----------+-------------------+
+| Field     | Type        | Null | Key | Default   | Extra             |
++-----------+-------------+------+-----+-----------+-------------------+
+| emp_id    | int         | NO   | PRI | NULL      |                   |
+| emp_name  | varchar(20) | YES  |     | NULL      |                   |
+| email     | varchar(20) | YES  | UNI | NULL      |                   |
+| salary    | int         | YES  |     | NULL      |                   |
+| join_date | date        | YES  |     | curdate() | DEFAULT_GENERATED |
+| dept_id   | int         | YES  | MUL | NULL      |                   |
++-----------+-------------+------+-----+-----------+-------------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table employees add city varchar(10) default ('Banglore');
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employees modify emp_name varchar(100);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employees;
++-----------+--------------+------+-----+--------------------+-------------------+
+| Field     | Type         | Null | Key | Default            | Extra             |
++-----------+--------------+------+-----+--------------------+-------------------+
+| emp_id    | int          | NO   | PRI | NULL               |                   |
+| emp_name  | varchar(100) | YES  |     | NULL               |                   |
+| email     | varchar(20)  | YES  | UNI | NULL               |                   |
+| salary    | int          | YES  |     | NULL               |                   |
+| join_date | date         | YES  |     | curdate()          | DEFAULT_GENERATED |
+| dept_id   | int          | YES  | MUL | NULL               |                   |
+| city      | varchar(10)  | YES  |     | _cp850\'Banglore\' | DEFAULT_GENERATED |
++-----------+--------------+------+-----+--------------------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employees rename column city to emp_city ;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employees;
++-----------+--------------+------+-----+--------------------+-------------------+
+| Field     | Type         | Null | Key | Default            | Extra             |
++-----------+--------------+------+-----+--------------------+-------------------+
+| emp_id    | int          | NO   | PRI | NULL               |                   |
+| emp_name  | varchar(100) | YES  |     | NULL               |                   |
+| email     | varchar(20)  | YES  | UNI | NULL               |                   |
+| salary    | int          | YES  |     | NULL               |                   |
+| join_date | date         | YES  |     | curdate()          | DEFAULT_GENERATED |
+| dept_id   | int          | YES  | MUL | NULL               |                   |
+| emp_city  | varchar(10)  | YES  |     | _cp850\'Banglore\' | DEFAULT_GENERATED |
++-----------+--------------+------+-----+--------------------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employees modify emp_name varchar(100) not nul;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'nul' at line 1
+mysql> alter table employees modify emp_name varchar(100) not null;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employees;
++-----------+--------------+------+-----+--------------------+-------------------+
+| Field     | Type         | Null | Key | Default            | Extra             |
++-----------+--------------+------+-----+--------------------+-------------------+
+| emp_id    | int          | NO   | PRI | NULL               |                   |
+| emp_name  | varchar(100) | NO   |     | NULL               |                   |
+| email     | varchar(20)  | YES  | UNI | NULL               |                   |
+| salary    | int          | YES  |     | NULL               |                   |
+| join_date | date         | YES  |     | curdate()          | DEFAULT_GENERATED |
+| dept_id   | int          | YES  | MUL | NULL               |                   |
+| emp_city  | varchar(10)  | YES  |     | _cp850\'Banglore\' | DEFAULT_GENERATED |
++-----------+--------------+------+-----+--------------------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> create table projects(
+    -> proj_id int primary key,
+    -> proj_name varchar(23) ,
+    -> budget int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table emp_projects(
+    -> emp_id int,
+    -> proj_id int,
+    -> primary key(emp_id,proj_id),
+    -> foreign key (emp_id)references employees(emp_id),
+    -> foreign key(proj_id) refernces projects(proj_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refernces projects(proj_id))' at line 6
+mysql> foreign key(proj_id) references projects(proj_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(proj_id) references projects(proj_id))' at line 1
+mysql>  create table emp_projects(
+    ->     -> emp_id int,
+    ->     -> proj_id int,
+    ->     -> primary key(emp_id,proj_id),
+    ->     -> foreign key (emp_id)references employees(emp_id),
+    -> ^C
+mysql> create table emp_projects(
+    -> emp_id int,
+    -> proj_id int,
+    ->  primary key(emp_id,proj_id),
+    -> ^C
+mysql> create table emp_projects(
+    -> emp_id int,
+    -> proj_id int
+    -> primary key(emp_id,proj_id),
+    -> foreign key (emp_id)references employees(emp_id),
+    -> foreign key(proj_id) refernces projects(proj_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(emp_id,proj_id),
+foreign key (emp_id)references employees(emp_id),
+foreign key(' at line 4
+mysql> CREATE TABLE emp_projects (
+    ->     emp_id INT,
+    ->     proj_id INT,
+    ->     PRIMARY KEY (emp_id, proj_id),
+    ->     FOREIGN KEY (emp_id) REFERENCES employees(emp_id),
+    ->     FOREIGN KEY (proj_id) REFERENCES projects(project_id)
+    -> );
+ERROR 3734 (HY000): Failed to add the foreign key constraint. Missing column 'project_id' for constraint 'emp_projects_ibfk_2' in the referenced table 'projects'
+mysql> CREATE TABLE emp_projects (
+    ->     emp_id INT,
+    ->     proj_id INT,
+    ->     PRIMARY KEY (emp_id, proj_id),
+    ->     FOREIGN KEY (emp_id) REFERENCES employees(emp_id),
+    ->     FOREIGN KEY (proj_id) REFERENCES projects(proj_id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc projects;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| proj_id   | int         | NO   | PRI | NULL    |       |
+| proj_name | varchar(23) | YES  |     | NULL    |       |
+| budget    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table projects modify budget check (budget>10000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'check (budget>10000)' at line 1
+mysql> alter table projects modify budget check(budget>10000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'check(budget>10000)' at line 1
+mysql> alter table projects  check(budget>10000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(budget>10000)' at line 1
+mysql> alter table projects  check(budget>10000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(budget>10000)' at line 1
+mysql> alter table projects
+    -> add constraint ch_bud check(budget>10000);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table projects add designation varchar(50);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table projects drop designation varchar(50);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(50)' at line 1
+mysql> alter table projects drop designation;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc projects;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| proj_id   | int         | NO   | PRI | NULL    |       |
+| proj_name | varchar(23) | YES  |     | NULL    |       |
+| budget    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc employees;
++-----------+--------------+------+-----+--------------------+-------------------+
+| Field     | Type         | Null | Key | Default            | Extra             |
++-----------+--------------+------+-----+--------------------+-------------------+
+| emp_id    | int          | NO   | PRI | NULL               |                   |
+| emp_name  | varchar(100) | NO   |     | NULL               |                   |
+| email     | varchar(20)  | YES  | UNI | NULL               |                   |
+| salary    | int          | YES  |     | NULL               |                   |
+| join_date | date         | YES  |     | curdate()          | DEFAULT_GENERATED |
+| dept_id   | int          | YES  | MUL | NULL               |                   |
+| emp_city  | varchar(10)  | YES  |     | _cp850\'Banglore\' | DEFAULT_GENERATED |
++-----------+--------------+------+-----+--------------------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> desc departmentsl
+    -> ;
+ERROR 1146 (42S02): Table 'interview.departmentsl' doesn't exist
+mysql> desc departments;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_id   | int         | NO   | PRI | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO employees
+    -> (emp_id, emp_name, email, salary, joining_date, dept_id)
+    -> VALUES
+    -> (101, 'Saran', 'saran@gmail.com', 55000, '2024-01-10', 1),
+    -> (102, 'Anitha', 'anitha@gmail.com', 45000, '2024-02-15', 2),
+    -> (103, 'Karthik', 'karthik@gmail.com', 60000, '2024-03-20', 3),
+    -> (104, 'Sneha', 'sneha@gmail.com', 65000, '2024-04-12', 1),
+    -> (105, 'Arjun', 'arjun@gmail.com', 48000, '2024-05-05', 4),
+    -> (106, 'Sowmya', 'sowmya@gmail.com', 52000, '2024-06-01', 2),
+    -> (107, 'Varun', 'varun@gmail.com', 58000, '2024-07-18', 3),
+    -> (108, 'Priya', 'priya@gmail.com', 47000, '2024-08-10', 4),
+    -> (109, 'Rahul', 'rahul@gmail.com', 70000, '2024-09-22', 1),
+    -> (110, 'Meena', 'meena@gmail.com', 53000, '2024-10-15', 5);
+ERROR 1054 (42S22): Unknown column 'joining_date' in 'field list'
+mysql> INSERT INTO departments (dept_id, dept_name)
+    -> VALUES
+    -> (1, 'IT'),
+    -> (2, 'HR'),
+    -> (3, 'Finance'),
+    -> (4, 'Marketing'),
+    -> (5, 'Administration');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO employees
+    -> (emp_id, emp_name, email, salary, dept_id)
+    -> VALUES
+    -> (101,'Saran','saran@gmail.com',55000,1),
+    -> (102,'Anitha','anitha@gmail.com',45000,2),
+    -> (103,'Karthik','karthik@gmail.com',60000,3),
+    -> (104,'Sneha','sneha@gmail.com',65000,1),
+    -> (105,'Arjun','arjun@gmail.com',48000,4),
+    -> (106,'Sowmya','sowmya@gmail.com',52000,2),
+    -> (107,'Varun','varun@gmail.com',58000,3),
+    -> (108,'Priya','priya@gmail.com',47000,4),
+    -> (109,'Rahul','rahul@gmail.com',70000,1),
+    -> (110,'Meena','meena@gmail.com',53000,5);
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO projects VALUES
+    -> (101,'ERP System',500000),
+    -> (102,'CRM Application',350000),
+    -> (103,'HRMS',250000),
+    -> (104,'E-Commerce Portal',600000),
+    -> (105,'Mobile App',450000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into emp_projects values()
+    -> insert into emp_projects values()^C
+mysql> insert into emp_projects values()
+    -> insert into emp_projects values(^C
+mysql> insert into emp_projects values(
+    -> (101,101),
+    -> (102,103),
+    -> (103,105);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+mysql> insert into emp_projects values(
+    -> (101,101),
+    -> (102,102),
+    -> (103,105);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+mysql> INSERT INTO emp_projects (emp_id, proj_id)
+    -> VALUES
+    ->     (101, 101),
+    ->     (102, 102),
+    ->     (103, 105);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> update employees set salary=salary+5000 where proj_id=101;
+ERROR 1054 (42S22): Unknown column 'proj_id' in 'where clause'
+mysql> ere proj_id=101; set sala^C
+mysql> select * from employees;
++--------+----------+-------------------+--------+------------+---------+----------+
+| emp_id | emp_name | email             | salary | join_date  | dept_id | emp_city |
++--------+----------+-------------------+--------+------------+---------+----------+
+|    101 | Saran    | saran@gmail.com   |  55000 | 2026-06-12 |       1 | Banglore |
+|    102 | Anitha   | anitha@gmail.com  |  45000 | 2026-06-12 |       2 | Banglore |
+|    103 | Karthik  | karthik@gmail.com |  60000 | 2026-06-12 |       3 | Banglore |
+|    104 | Sneha    | sneha@gmail.com   |  65000 | 2026-06-12 |       1 | Banglore |
+|    105 | Arjun    | arjun@gmail.com   |  48000 | 2026-06-12 |       4 | Banglore |
+|    106 | Sowmya   | sowmya@gmail.com  |  52000 | 2026-06-12 |       2 | Banglore |
+|    107 | Varun    | varun@gmail.com   |  58000 | 2026-06-12 |       3 | Banglore |
+|    108 | Priya    | priya@gmail.com   |  47000 | 2026-06-12 |       4 | Banglore |
+|    109 | Rahul    | rahul@gmail.com   |  70000 | 2026-06-12 |       1 | Banglore |
+|    110 | Meena    | meena@gmail.com   |  53000 | 2026-06-12 |       5 | Banglore |
++--------+----------+-------------------+--------+------------+---------+----------+
+10 rows in set (0.01 sec)
+
+mysql> select * from projects;
++---------+-------------------+--------+
+| proj_id | proj_name         | budget |
++---------+-------------------+--------+
+|     101 | ERP System        | 500000 |
+|     102 | CRM Application   | 350000 |
+|     103 | HRMS              | 250000 |
+|     104 | E-Commerce Portal | 600000 |
+|     105 | Mobile App        | 450000 |
++---------+-------------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp_projects;
++--------+---------+
+| emp_id | proj_id |
++--------+---------+
+|    101 |     101 |
+|    102 |     102 |
+|    103 |     105 |
++--------+---------+
+3 rows in set (0.0
